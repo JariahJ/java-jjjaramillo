@@ -17,7 +17,8 @@ public class App {
     }
 
     private void run() {
-        System.out.println("Hello World"); 
+        String who = "World ";
+        System.out.println("Hey" + who + "!"); 
     }
     
 }
