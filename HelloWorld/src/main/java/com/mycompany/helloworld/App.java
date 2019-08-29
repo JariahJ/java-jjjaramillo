@@ -10,13 +10,21 @@ package com.mycompany.helloworld;
  * @author jaria
  */
 public class App {
-    
+    private String greeting = "Hello";
+    public String getGreeting(){
+        return greeting;
+    }
+    public void setGreeting(String greeting){
+        this.greeting = greeting;
+    }
     public static void main(String [] args) throws Exception {
         App app = new App();
         app.run();
     }
 
     private void run() {
+        
+        
         String who = "World ";
         System.out.println("Hey" + who + "!"); 
     }
