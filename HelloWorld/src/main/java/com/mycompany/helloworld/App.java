@@ -10,6 +10,28 @@ package com.mycompany.helloworld;
  * @author jaria
  */
 public class App {
+    
+    private String who = "world";
+
+    /**
+     * Get the value of string
+     *
+     * @return the value of string
+     */
+    public String getWho() {
+        return who;
+    }
+
+    /**
+     * Set the value of string
+     *
+     * @param string new value of string
+     */
+    public void setWho(String string) {
+        this.who = string;
+    }
+
+    
     private String greeting = "Hello";
     public String getGreeting(){
         return greeting;
@@ -25,8 +47,8 @@ public class App {
     private void run() {
         
         
-        String who = "World ";
-        System.out.println("Hey" + who + "!"); 
+        String who = "World";
+        System.out.println(getGreeting()+ ' ' + getWho() + "!"); 
     }
     
 }
