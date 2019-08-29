@@ -11,7 +11,7 @@ package com.mycompany.helloworld;
  */
 public class App {
     
-    private String who = "world";
+    private String who = "World";
 
     /**
      * Get the value of string
