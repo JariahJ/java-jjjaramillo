@@ -9,7 +9,7 @@
 
 
 
-
+## Assignments
 
 | Assignment       | Due Date                   | Location | Notes 
 | ----------       |:-------------:             |          |
