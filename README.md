@@ -12,7 +12,7 @@
 ## Assignments
 
 | Assignment       | Due Date                   | Location | Notes 
-| ----------       |:-------------:             |          |
+| ----------       |:-------------:             | -------  |-------
 | Hello World      |                            |          |
 |                  |                            |          |
 |                  |                            |          |
