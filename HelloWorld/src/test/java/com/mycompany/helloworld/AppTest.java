@@ -56,6 +56,8 @@ public class AppTest {
         String string = "Bjarne";
         App instance = new App();
         instance.setWho(string);
+        String expResult = instance.getWho();
+        assertEquals(expResult, string);
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
     }
