@@ -1,1 +1,1 @@
-![Screenshot (8).png](Screenshot (8).png)
+![https://github.com/JariahJ/java-jjjaramillo/blob/master/HelloWorld/src/main/java/com/mycompany/helloworld/Screenshot%20(8).png](https://github.com/JariahJ/java-jjjaramillo/blob/master/HelloWorld/src/main/java/com/mycompany/helloworld/Screenshot%20(8).png)
