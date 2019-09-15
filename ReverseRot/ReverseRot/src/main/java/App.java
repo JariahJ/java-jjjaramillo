@@ -22,10 +22,15 @@ public class App {
         int numShifts = 1;
         Scanner S = new Scanner(System.in);
 
-        while (numShifts != 0) {
+        while (true) {
             numShifts = S.nextInt();
+            
+            if (numShifts == 0){
+                break;
+            }
             input = S.next();
             S.nextLine();
+            
             app.run(app.a, numShifts, input);
         }
 
@@ -41,9 +46,7 @@ public class App {
 
     private void run(char[] a, int numShifts, String input) {
         String encrypted = "";
-        int counter = 0;
-        int differenceToEnd = 0;
-        
+ 
         for (int i = 0; i < input.length(); i++) {
             for (int j = 0; j <= a.length-1; j++) {
                 if (input.charAt(i) == a[j]) {
