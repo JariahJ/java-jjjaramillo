@@ -31,9 +31,9 @@ public class App {
 
     }
 
-    private static String reverseString(String input) {
+    private String reverseString(String input) {
         String output = "";
-        for (int i = input.length()-1; i >= 0; i--) {
+        for (int i = input.length() - 1; i >= 0; i--) {
             output += input.charAt(i);
         }
         return output;
@@ -41,11 +41,17 @@ public class App {
 
     private void run(char[] a, int numShifts, String input) {
         String encrypted = "";
-        int difference = 0;
+        int counter = 0;
+        int differenceToEnd = 0;
+        
         for (int i = 0; i < input.length(); i++) {
-            for (int j = 0; j < a.length; j++) {
-                if (a[j] == input.charAt(i)) {
-                    encrypted += a[j + numShifts];
+            for (int j = 0; j <= a.length-1; j++) {
+                if (input.charAt(i) == a[j]) {
+                    if ((j + numShifts) > a.length-1) {
+                        encrypted += a[(j+numShifts) - (a.length-1) - 1];
+                    } else {
+                        encrypted += a[j + numShifts];
+                    }
                 }
             }
         }
