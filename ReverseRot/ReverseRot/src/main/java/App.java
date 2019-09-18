@@ -14,24 +14,24 @@ public class App {
 
     char[] a = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N',
         'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '_', '.'};
+    int numShifts = 1;
+    String input;
 
     public static void main(String[] args) throws Exception {
         App app = new App();
 
-        String input;
-        int numShifts = 1;
         Scanner S = new Scanner(System.in);
 
         while (true) {
-            numShifts = S.nextInt();
+            app.numShifts = S.nextInt();
             
-            if (numShifts == 0){
+            if (app.numShifts == 0){
                 break;
             }
-            input = S.next();
+            app.input = S.next();
             S.nextLine();
             
-            app.run(app.a, numShifts, input);
+            app.run(app.a, app.numShifts, app.input);
         }
 
     }
@@ -44,7 +44,7 @@ public class App {
         return output;
     }
 
-    private void run(char[] a, int numShifts, String input) {
+    public String run(char[] a, int numShifts, String input) {
         String encrypted = "";
  
         for (int i = 0; i < input.length(); i++) {
@@ -59,6 +59,7 @@ public class App {
             }
         }
         System.out.println(reverseString(encrypted));
+        return reverseString(encrypted);
     }
 
 }
