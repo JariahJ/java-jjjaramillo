@@ -32,7 +32,7 @@ public class collection {
 
             String kee = s.nextLine();
 
-            if (kee == "done" + System.lineSeparator()) {
+            if ("done".equals(kee) ) {
                 done = true;
             }
             
