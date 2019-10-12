@@ -16,45 +16,46 @@ public class collection {
 
     Scanner s = new Scanner(System.in);
     Map<String, String> m = new HashMap<String, String>();
+    String kee;
+    String translation;
 
     public static void main(String[] args) {
         collection c = new collection();
-        System.out.println(c.run());
+        c.run();
     }
 
-    private String run() {
-        boolean done = false;
-        String translation = null;
-        while (!done) {
-            System.out.println("Enter a number between 1-9 to get the "
-                    + "spanish translation!"
-                    + "Enter 'done' when finished");
+    void read() {
+        kee = s.nextLine();
+    }
 
-            String kee = s.nextLine();
-
-            if ("done".equals(kee) ) {
-                done = true;
-            }
-            
-
-            this.m.put("one", "uno");
-            this.m.put("two", "dos");
-            this.m.put("three", "tres");
-            this.m.put("four", "cuatro");
-            this.m.put("five", "cinco");
-            this.m.put("six", "seis");
-            this.m.put("seven", "siete");
-            this.m.put("eight", "ocho");
-            this.m.put("nine", "nueve");
-
-            if (m.containsKey(kee)) {
-                translation = m.get(kee);
-                System.out.println(translation);
-            } else {
-                System.out.println("Key: " + kee + " not found in map!");
-            }
-
+    void solve() {
+        if (m.containsKey(kee)) {
+            translation = m.get(kee);
+            System.out.println(translation);
+        } else {
+            System.out.println("Key: " + kee + " not found in map!");
         }
+    }
+
+    public String run() {
+        System.out.println("Enter a number between one-nine (as a word) to get the "
+                + "spanish translation!"
+                + "Enter 'done' when finished");
+
+        read();
+        solve();
+        write();
+
+        this.m.put("one", "uno");
+        this.m.put("two", "dos");
+        this.m.put("three", "tres");
+        this.m.put("four", "cuatro");
+        this.m.put("five", "cinco");
+        this.m.put("six", "seis");
+        this.m.put("seven", "siete");
+        this.m.put("eight", "ocho");
+        this.m.put("nine", "nueve");
+
         return translation;
     }
 }
