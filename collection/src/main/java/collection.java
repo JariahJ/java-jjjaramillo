@@ -24,6 +24,19 @@ public class collection {
         c.run();
     }
 
+    collection() {
+        this.m.put("one", "uno");
+        this.m.put("two", "dos");
+        this.m.put("three", "tres");
+        this.m.put("four", "cuatro");
+        this.m.put("five", "cinco");
+        this.m.put("six", "seis");
+        this.m.put("seven", "siete");
+        this.m.put("eight", "ocho");
+        this.m.put("nine", "nueve");
+
+    }
+
     void read() {
         kee = s.nextLine();
     }
@@ -40,11 +53,10 @@ public class collection {
         System.out.println(translation);
     }
 
-    boolean done()
-    {
+    boolean done() {
         return "done".equals(kee);
     }
-    
+
     public void run() {
 
         while (true) {
@@ -52,18 +64,10 @@ public class collection {
                     + "spanish translation!"
                     + "Enter 'done' when finished");
 
-            this.m.put("one", "uno");
-            this.m.put("two", "dos");
-            this.m.put("three", "tres");
-            this.m.put("four", "cuatro");
-            this.m.put("five", "cinco");
-            this.m.put("six", "seis");
-            this.m.put("seven", "siete");
-            this.m.put("eight", "ocho");
-            this.m.put("nine", "nueve");
-
             read();
-            if (done()) break;
+            if (done()) {
+                break;
+            }
             solve();
             write();
         }
