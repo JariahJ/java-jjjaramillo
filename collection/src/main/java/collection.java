@@ -15,7 +15,7 @@ import java.util.Scanner;
 public class collection {
 
     Scanner s = new Scanner(System.in);
-    Map<String, String> m = new HashMap<String, String>();
+    Map<String, String> m = new HashMap<>();
     String kee;
     String translation;
 
@@ -31,31 +31,41 @@ public class collection {
     void solve() {
         if (m.containsKey(kee)) {
             translation = m.get(kee);
-            System.out.println(translation);
         } else {
             System.out.println("Key: " + kee + " not found in map!");
         }
     }
 
-    public String run() {
-        System.out.println("Enter a number between one-nine (as a word) to get the "
-                + "spanish translation!"
-                + "Enter 'done' when finished");
+    void write() {
+        System.out.println(translation);
+    }
 
-        read();
-        solve();
-        write();
+    boolean done()
+    {
+        return "done".equals(kee);
+    }
+    
+    public void run() {
 
-        this.m.put("one", "uno");
-        this.m.put("two", "dos");
-        this.m.put("three", "tres");
-        this.m.put("four", "cuatro");
-        this.m.put("five", "cinco");
-        this.m.put("six", "seis");
-        this.m.put("seven", "siete");
-        this.m.put("eight", "ocho");
-        this.m.put("nine", "nueve");
+        while (true) {
+            System.out.println("Enter a number between one-nine (as a word) to get the "
+                    + "spanish translation!"
+                    + "Enter 'done' when finished");
 
-        return translation;
+            this.m.put("one", "uno");
+            this.m.put("two", "dos");
+            this.m.put("three", "tres");
+            this.m.put("four", "cuatro");
+            this.m.put("five", "cinco");
+            this.m.put("six", "seis");
+            this.m.put("seven", "siete");
+            this.m.put("eight", "ocho");
+            this.m.put("nine", "nueve");
+
+            read();
+            if (done()) break;
+            solve();
+            write();
+        }
     }
 }
