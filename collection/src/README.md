@@ -1,1 +1,1 @@
-![testsPassed](testsPassed)
+![testsPassed](testsPassed.png)
