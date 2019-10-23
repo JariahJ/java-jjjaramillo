@@ -1,10 +1,13 @@
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -24,14 +27,17 @@ class additionJob {
     }
 
     public void run() {
-
-        int num = this.qa.getNumberFromList();
-        this.qa.addToQueue(num);
+        if (this.qa.s.hasNextInt()) {
+            int num = this.qa.getNumberFromList();
+            this.qa.addToQueue(num);
+        }
     }
 }
 
 public class queueAdditions {
 
+    Scanner s;
+    FileReader fr;
     Queue<Integer> q = new LinkedList<>();
     ArrayList<Integer> data = new ArrayList(5000);
     Object qLock = new Object();
@@ -39,16 +45,21 @@ public class queueAdditions {
 
     void read() {
         //try to open the file
-        FileReader fr = null;
+        fr = null;
         try {
             fr = new FileReader("C:\\Users\\jaria\\Desktop\\java\\"
                     + "java-jjjaramillo\\Threads\\input.txt");
         } catch (FileNotFoundException ex) {
             System.out.println(ex.toString());
         }
-        Scanner s = new Scanner(fr);
+        s = new Scanner(fr);
         while (s.hasNextInt()) {
             data.add(s.nextInt());
+        }
+        try {
+            fr.close();
+        } catch (IOException ex) {
+            System.out.println(ex.toString());
         }
     }
 
@@ -71,6 +82,10 @@ public class queueAdditions {
         for (int thread = 0; thread < threads; ++thread) {
             jobs.add(new additionJob(this));
         }
+        while (!data.isEmpty()) {
+            jobs.parallelStream().forEach(number -> number.run());
+        }
+        if (data.isEmpty()) System.out.println("All data added to queue");
     }
 
     void numberOfThreads() {
