@@ -5,9 +5,6 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Scanner;
-import java.util.concurrent.PriorityBlockingQueue;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -18,36 +15,50 @@ import java.util.logging.Logger;
  *
  * @author jaria
  */
-
 class additionJob {
+    queueAdditions qa;
     
+    additionJob(queueAdditions qa){
+    this.qa = qa;
+    }
+    
+    
+    public void run(){
+    
+    }
 }
 
 public class queueAdditions {
 
     Queue<Integer> q = new LinkedList<>();
+    ArrayList<Integer> data = new ArrayList(5000);
 
     void read() {
         //try to open the file
         FileReader fr = null;
         try {
-            fr = new FileReader("C:\\Users\\jaria\\Desktop\\java-jjjaramillo"
-                    + "\\Threads\\input.txt");
+            fr = new FileReader("C:\\Users\\jaria\\Desktop\\java\\"
+                    + "java-jjjaramillo\\Threads\\input.txt");
         } catch (FileNotFoundException ex) {
             System.out.println(ex.toString());
         }
         Scanner s = new Scanner(fr);
-
+        while (s.hasNextInt()){
+        data.add(s.nextInt());
+        }
     }
 
-    void parallelAddition(int threads) {
+    void createThreads(int threads) {
         ArrayList<additionJob> jobs = new ArrayList<additionJob>(threads);
+         for (int thread = 0; thread < threads; ++thread) {
+            jobs.add(new additionJob(this));
+        }
     }
 
-    void parallelAddition() {
+    void numberOfThreads() {
         int cores = Runtime.getRuntime().availableProcessors();
         int threads = 2 * cores;
-        parallelAddition(threads);
+        createThreads(threads);
     }
 
     public static void main(String[] args) {
