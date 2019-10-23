@@ -16,15 +16,17 @@ import java.util.Scanner;
  * @author jaria
  */
 class additionJob {
+
     queueAdditions qa;
-    
-    additionJob(queueAdditions qa){
-    this.qa = qa;
+
+    additionJob(queueAdditions qa) {
+        this.qa = qa;
     }
-    
-    
-    public void run(){
-    
+
+    public void run() {
+        int num = this.qa.getNumberFromList();
+        
+
     }
 }
 
@@ -32,6 +34,7 @@ public class queueAdditions {
 
     Queue<Integer> q = new LinkedList<>();
     ArrayList<Integer> data = new ArrayList(5000);
+    Object lock = new Object();
 
     void read() {
         //try to open the file
@@ -43,14 +46,22 @@ public class queueAdditions {
             System.out.println(ex.toString());
         }
         Scanner s = new Scanner(fr);
-        while (s.hasNextInt()){
-        data.add(s.nextInt());
+        while (s.hasNextInt()) {
+            data.add(s.nextInt());
+        }
+    }
+
+    int getNumberFromList() {
+        synchronized(lock){
+        int num = data.get(0);
+        data.remove(0);
+        return num;
         }
     }
 
     void createThreads(int threads) {
         ArrayList<additionJob> jobs = new ArrayList<additionJob>(threads);
-         for (int thread = 0; thread < threads; ++thread) {
+        for (int thread = 0; thread < threads; ++thread) {
             jobs.add(new additionJob(this));
         }
     }
