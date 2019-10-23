@@ -25,7 +25,7 @@ class additionJob {
     }
 
     public void run() {
-        if (this.qa.s.hasNextInt()) {
+        if (!this.qa.data.isEmpty()) {
             int num = this.qa.getNumberFromList();
             this.qa.addToQueue(num);
         }
@@ -45,7 +45,7 @@ public class queueAdditions {
         //try to open the file
         fr = null;
         try {
-            fr = new FileReader("C:\\Users\\jaria\\Desktop\\java\\java-jjjaramillo\\Threads\\input.txt");
+            fr = new FileReader("C:\\Users\\jjjaramillo\\Documents\\NetBeansProjects\\Threads\\input.txt.txt");
         } catch (FileNotFoundException ex) {
             System.out.println(ex.toString());
         }
@@ -63,19 +63,22 @@ public class queueAdditions {
     int getNumberFromList() {
         synchronized (dataLock) {
             int num = data.get(0);
+            System.out.println(data.get(0) + "grabbed from list");
             data.remove(0);
+            
             return num;
         }
     }
 
     void addToQueue(int num) {
-        synchronized (qLock) {
+        synchronized (qLock) { 
             q.add(num);
+            System.out.println(num + "added to queue");
         }
     }
 
     void parallelAdd(int threads) {
-        ArrayList<additionJob> jobs = new ArrayList<>(threads);
+        ArrayList<additionJob> jobs = new ArrayList<additionJob>(threads);
         for (int thread = 0; thread < threads; ++thread) {
             jobs.add(new additionJob(this));
         }
@@ -95,6 +98,7 @@ public class queueAdditions {
 
     public static void main(String[] args) {
         queueAdditions qa = new queueAdditions();
+        qa.read();
         qa.eval();
     }
 
