@@ -1,6 +1,7 @@
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Scanner;
@@ -17,6 +18,11 @@ import java.util.logging.Logger;
  *
  * @author jaria
  */
+
+class additionJob {
+    
+}
+
 public class queueAdditions {
 
     Queue<Integer> q = new LinkedList<>();
@@ -31,17 +37,17 @@ public class queueAdditions {
             System.out.println(ex.toString());
         }
         Scanner s = new Scanner(fr);
-        while (s.hasNextInt()) {
-            q.add(s.nextInt());
-            s.nextLine();
-        }
-        int i = 0;
-        for (int v : q) {
-            System.out.println(i);
-            System.out.println(v);
-            i+=1;
-        }
 
+    }
+
+    void parallelAddition(int threads) {
+        ArrayList<additionJob> jobs = new ArrayList<additionJob>(threads);
+    }
+
+    void parallelAddition() {
+        int cores = Runtime.getRuntime().availableProcessors();
+        int threads = 2 * cores;
+        parallelAddition(threads);
     }
 
     public static void main(String[] args) {
