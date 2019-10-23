@@ -24,9 +24,9 @@ class additionJob {
     }
 
     public void run() {
-        int num = this.qa.getNumberFromList();
-        
 
+        int num = this.qa.getNumberFromList();
+        this.qa.addToQueue(num);
     }
 }
 
@@ -34,7 +34,8 @@ public class queueAdditions {
 
     Queue<Integer> q = new LinkedList<>();
     ArrayList<Integer> data = new ArrayList(5000);
-    Object lock = new Object();
+    Object qLock = new Object();
+    Object dataLock = new Object();
 
     void read() {
         //try to open the file
@@ -52,10 +53,16 @@ public class queueAdditions {
     }
 
     int getNumberFromList() {
-        synchronized(lock){
-        int num = data.get(0);
-        data.remove(0);
-        return num;
+        synchronized (dataLock) {
+            int num = data.get(0);
+            data.remove(0);
+            return num;
+        }
+    }
+
+    void addToQueue(int num) {
+        synchronized (qLock) {
+            q.add(num);
         }
     }
 
