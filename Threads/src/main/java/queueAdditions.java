@@ -45,7 +45,7 @@ public class queueAdditions {
         //try to open the file
         fr = null;
         try {
-            fr = new FileReader("C:\\Users\\jjjaramillo\\Documents\\NetBeansProjects\\Threads\\input.txt.txt");
+            fr = new FileReader("C:\\Users\\jaria\\Desktop\\java-jjjaramillo\\Threads\\input.txt");
         } catch (FileNotFoundException ex) {
             System.out.println(ex.toString());
         }
@@ -62,16 +62,21 @@ public class queueAdditions {
 
     int getNumberFromList() {
         synchronized (dataLock) {
-            int num = data.get(0);
-            System.out.println(data.get(0) + "grabbed from list");
-            data.remove(0);
-            
-            return num;
+            if (!this.data.isEmpty()) {
+                int num = data.get(0);
+                System.out.println(data.get(0) + "grabbed from list");
+                data.remove(0);
+                return num;
+            }
+            //final iteration of threads passed the run function conditional,
+            //they attempted to get another num from list so terminate program
+            System.exit(0);
+            return 1;
         }
     }
 
     void addToQueue(int num) {
-        synchronized (qLock) { 
+        synchronized (qLock) {
             q.add(num);
             System.out.println(num + "added to queue");
         }
