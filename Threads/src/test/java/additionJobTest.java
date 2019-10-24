@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
+import org.junit.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -11,17 +11,20 @@ import static org.junit.jupiter.api.Assertions.*;
  * @author jaria
  */
 public class additionJobTest {
-    
+
     /**
      * Test of run method, of class additionJob.
      */
-    @org.junit.jupiter.api.Test
+    //@org.junit.jupiter.api.Test
+    @Test
     public void testRun() {
         System.out.println("run");
-        additionJob instance = null;
+        queueAdditions qa = new queueAdditions();
+        qa.read();
+        additionJob instance = new additionJob(qa);
         instance.run();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        int expected = qa.q.size();
+        assertSame(expected, 1);
     }
     
 }
