@@ -30,16 +30,16 @@ public class DB extends DefaultDB {
     }
 
     void reset() throws SQLException {
-        sql("drop table if exists car");
-        sql("create table car (id integer primary key, name string)");
+        sql("drop table if exists cars");
+        sql("create table cars (id integer primary key, name string)");
     }
 
     long insertCar(String name) throws SQLException {
-        return longResult(sql("insert into car (name) values (?)", name));
+        return longResult(sql("insert into cars (name) values (?)", name));
     }
 
     String getCar(long id) throws SQLException {
-        return stringResult(sql("select name from car where id=?", id));
+        return stringResult(sql("select name from cars where id=?", id));
     }
 
     void run() throws SQLException {
