@@ -29,7 +29,7 @@ public class App {
     }
 
     public void insert(String name, double capacity) {
-        String sql = "INSERT INTO car(name,capacity) VALUES(?,?)";
+        String sql = "INSERT INTO cars(name,capacity) VALUES(?,?)";
 
         try (Connection conn = this.connect();
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -41,9 +41,9 @@ public class App {
         }
     }
 
-    public void createNewTable() {
+    public void createNewTable(String tableName) {
         // SQL statement for creating a new table
-        String sql = "CREATE TABLE IF NOT EXISTS car (\n"
+        String sql = "CREATE TABLE IF NOT EXISTS "+ tableName +"(\n"
                 + "	id integer PRIMARY KEY,\n"
                 + "	name text NOT NULL,\n"
                 + "	capacity real\n"
@@ -81,14 +81,19 @@ public class App {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        new App().run();
+        App app = new App();
+        app.run("cars on hand", "Toyota", 20);
+        app.run("cars on hand", "Honda", 40);
+        app.run("cars on hand", "Mitsubishi", 5);
+        app.run("cars in storage","Nissan", 2000);
+        app.run("cars in storage","Volks Wagen", 400);
+        app.run("cars in storage","Tesla", 350 );
     }
 
-    void run() {
+    void run(String tableName, String name, double capacity) {
         createNewDatabase();
-        createNewTable();
-        insert("Toyota", 3000);
-        insert("Honda", 4000);
-        insert("Mitsubishi", 5000);
+        createNewTable(tableName);
+     
+        insert(name, capacity);
     }
 }
