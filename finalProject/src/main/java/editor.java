@@ -8,17 +8,16 @@
  *
  * @author jaria
  */
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
-import java.io.*;
-import java.awt.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.plaf.metal.MetalLookAndFeel;
+import javax.swing.plaf.metal.*;
 
-public class editor {
+public class editor extends JFrame implements ActionListener {
 
     JFrame frame;
     JTextArea textArea;
+
 
     editor() {
         frame = new JFrame("Editor");
@@ -29,6 +28,30 @@ public class editor {
         } catch (ClassNotFoundException | IllegalAccessException | InstantiationException | UnsupportedLookAndFeelException ex) {
             System.out.println(ex.toString());
         }
+        textArea = new JTextArea();
+        
+        JMenuBar menuBar = new JMenuBar();
+        
+        JMenu m1 = new JMenu("File");
+        
+        JMenuItem mi1 = new JMenuItem("New");
+        JMenuItem mi2 = new JMenuItem("Open");
+        JMenuItem mi3 = new JMenuItem("Save");
+        
+        mi1.addActionListener(this);
+        mi2.addActionListener(this);
+        mi3.addActionListener(this);
+        
+        m1.add(mi1);
+        m1.add(mi2);
+        m1.add(mi3);
+        
+        menuBar.add(m1);
+     
+        frame.setJMenuBar(menuBar);
+        frame.add(textArea);
+        frame.setSize(750,750);
+        frame.setVisible(true);
     }
 
     public static void main(String[] args) {
@@ -38,6 +61,11 @@ public class editor {
 
     private void run() {
 
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
