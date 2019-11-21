@@ -72,23 +72,14 @@ public class editor extends JFrame implements ActionListener {
 
         switch (str) {
             case "New": {
-                File file = new File("c:\\newfile.txt");
-            try {
-                if (file.createNewFile()) {
+                textArea.setText("");
+                break;
+            }
+            case "Open": {
+                JFileChooser jfc = new JFileChooser("C:");
+                jfc.showOpenDialog(null);
 
-                }
-            } catch (Exception ex) {
-                ex.toString();
             }
-            }
-            break;
         }
-
     }
-
-    throw new UnsupportedOperationException(
-
-"Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
 }
