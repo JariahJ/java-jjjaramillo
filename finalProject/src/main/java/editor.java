@@ -10,9 +10,12 @@
  */
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -35,8 +38,7 @@ public class editor extends JFrame implements ActionListener {
             System.out.println(ex.toString());
         }
         textArea = new JTextArea();
-        
-        
+
         JMenuBar menuBar = new JMenuBar();
 
         JMenu m1 = new JMenu("File");
@@ -76,7 +78,7 @@ public class editor extends JFrame implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent e){
+    public void actionPerformed(ActionEvent e) {
         String str = e.getActionCommand();
 
         switch (str) {
@@ -87,24 +89,40 @@ public class editor extends JFrame implements ActionListener {
             case "Open": {
                 JFileChooser jfc = new JFileChooser("C:");
                 int retVal = jfc.showOpenDialog(null);
-                
+
                 if (retVal == JFileChooser.APPROVE_OPTION) {
-			File selectedFile = jfc.getSelectedFile();
-                        FileReader fr;
+                    File selectedFile = jfc.getSelectedFile();
+                    FileReader fr;
                     try {
                         fr = new FileReader(selectedFile);
-                         s = new Scanner(fr);
-                    while(s.hasNextLine())
-                    {
-                        textArea.append(s.nextLine());
-                        textArea.append(System.lineSeparator());
-                    }
+                        s = new Scanner(fr);
+                        while (s.hasNextLine()) {
+                            textArea.append(s.nextLine());
+                            textArea.append(System.lineSeparator());
+                        }
                     } catch (FileNotFoundException ex) {
                         System.out.println(ex.toString());
                     }
-                        
-		}
 
+                }
+                break;
+            }
+            case "Save": {
+                JFileChooser SaveAs = new JFileChooser("C:");
+                SaveAs.setApproveButtonText("Save");
+                int retVal = SaveAs.showOpenDialog(this);
+                if (retVal == JFileChooser.APPROVE_OPTION) {
+                    File file = new File(SaveAs.getSelectedFile().toString());
+                    BufferedWriter outFile = null;
+                    
+                    try {
+                        outFile = new BufferedWriter(new FileWriter(file));
+                        textArea.write(outFile);
+                    } catch (IOException ex) {
+                        System.out.println(ex.toString());
+                    }
+                }
+                break;
             }
         }
     }
