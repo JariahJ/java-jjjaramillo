@@ -11,16 +11,22 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
 import javax.swing.plaf.metal.*;
+import javax.swing.text.Document;
 
 public class editor extends JFrame implements ActionListener {
 
     JFrame frame;
     JTextArea textArea;
+    Scanner s;
 
     editor() {
         frame = new JFrame("Editor");
@@ -53,7 +59,9 @@ public class editor extends JFrame implements ActionListener {
 
         frame.setJMenuBar(menuBar);
         frame.add(textArea);
+        textArea.setLineWrap(true);
         frame.setSize(750, 750);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
     }
 
@@ -67,7 +75,7 @@ public class editor extends JFrame implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent e){
         String str = e.getActionCommand();
 
         switch (str) {
@@ -77,7 +85,26 @@ public class editor extends JFrame implements ActionListener {
             }
             case "Open": {
                 JFileChooser jfc = new JFileChooser("C:");
-                jfc.showOpenDialog(null);
+                int retVal = jfc.showOpenDialog(null);
+                
+                if (retVal == JFileChooser.APPROVE_OPTION) {
+			File selectedFile = jfc.getSelectedFile();
+                        FileReader fr;
+                    try {
+                        fr = new FileReader(selectedFile);
+                         s = new Scanner(fr);
+                    while(s.hasNextLine())
+                    {
+                        textArea.append(s.nextLine());
+                        textArea.append(System.lineSeparator());
+                    }
+                    } catch (FileNotFoundException ex) {
+                        Logger.getLogger(editor.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    
+                   
+                        
+		}
 
             }
         }
