@@ -13,14 +13,11 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
 import javax.swing.plaf.metal.*;
-import javax.swing.text.Document;
 
 public class editor extends JFrame implements ActionListener {
 
@@ -38,7 +35,8 @@ public class editor extends JFrame implements ActionListener {
             System.out.println(ex.toString());
         }
         textArea = new JTextArea();
-
+        
+        
         JMenuBar menuBar = new JMenuBar();
 
         JMenu m1 = new JMenu("File");
@@ -59,8 +57,11 @@ public class editor extends JFrame implements ActionListener {
 
         frame.setJMenuBar(menuBar);
         frame.add(textArea);
+        JScrollPane sp = new JScrollPane(textArea);
+        frame.getContentPane().add(sp);
         textArea.setLineWrap(true);
         frame.setSize(750, 750);
+        frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
     }
@@ -99,10 +100,8 @@ public class editor extends JFrame implements ActionListener {
                         textArea.append(System.lineSeparator());
                     }
                     } catch (FileNotFoundException ex) {
-                        Logger.getLogger(editor.class.getName()).log(Level.SEVERE, null, ex);
+                        System.out.println(ex.toString());
                     }
-                    
-                   
                         
 		}
 
