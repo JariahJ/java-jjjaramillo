@@ -17,10 +17,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.*;
-import javax.swing.plaf.metal.*;
 
 public class editor extends JFrame implements ActionListener {
 
@@ -31,12 +28,6 @@ public class editor extends JFrame implements ActionListener {
     editor() {
         frame = new JFrame("Editor");
 
-        try {
-            UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
-            MetalLookAndFeel.setCurrentTheme(new OceanTheme());
-        } catch (ClassNotFoundException | IllegalAccessException | InstantiationException | UnsupportedLookAndFeelException ex) {
-            System.out.println(ex.toString());
-        }
         textArea = new JTextArea();
 
         JMenuBar menuBar = new JMenuBar();
@@ -62,6 +53,7 @@ public class editor extends JFrame implements ActionListener {
         JScrollPane sp = new JScrollPane(textArea);
         frame.getContentPane().add(sp);
         textArea.setLineWrap(true);
+        textArea.setFont(textArea.getFont().deriveFont(20f));
         frame.setSize(750, 750);
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -70,11 +62,6 @@ public class editor extends JFrame implements ActionListener {
 
     public static void main(String[] args) {
         editor e = new editor();
-        e.run();
-    }
-
-    private void run() {
-
     }
 
     @Override
@@ -87,43 +74,63 @@ public class editor extends JFrame implements ActionListener {
                 break;
             }
             case "Open": {
-                JFileChooser jfc = new JFileChooser("C:");
-                int retVal = jfc.showOpenDialog(null);
-
-                if (retVal == JFileChooser.APPROVE_OPTION) {
-                    File selectedFile = jfc.getSelectedFile();
-                    FileReader fr;
-                    try {
-                        fr = new FileReader(selectedFile);
-                        s = new Scanner(fr);
-                        while (s.hasNextLine()) {
-                            textArea.append(s.nextLine());
-                            textArea.append(System.lineSeparator());
-                        }
-                    } catch (FileNotFoundException ex) {
-                        System.out.println(ex.toString());
-                    }
-
-                }
+                openFile();
                 break;
             }
             case "Save": {
-                JFileChooser SaveAs = new JFileChooser("C:");
-                SaveAs.setApproveButtonText("Save");
-                int retVal = SaveAs.showOpenDialog(this);
-                if (retVal == JFileChooser.APPROVE_OPTION) {
-                    File file = new File(SaveAs.getSelectedFile().toString());
-                    BufferedWriter outFile = null;
-                    
-                    try {
-                        outFile = new BufferedWriter(new FileWriter(file));
-                        textArea.write(outFile);
-                    } catch (IOException ex) {
-                        System.out.println(ex.toString());
-                    }
-                }
+                saveFile();
                 break;
             }
+        }
+    }
+
+    private void saveFile() {
+        JFileChooser SaveAs = new JFileChooser("C:");
+        SaveAs.setApproveButtonText("Save");
+        int retVal = SaveAs.showOpenDialog(this);
+        if (retVal == JFileChooser.APPROVE_OPTION) {
+            File file = new File(SaveAs.getSelectedFile().toString());
+            BufferedWriter outFile = null;
+
+            try {
+                outFile = new BufferedWriter(new FileWriter(file));
+                textArea.write(outFile);
+                JDialog dialog = new JDialog();
+                dialog.setSize(100, 100);
+                JLabel label = new JLabel();
+                label.setText("File Saved Successfully");
+                dialog.setAlwaysOnTop(true);
+                dialog.setTitle("Notification");
+                dialog.add(label);
+                
+                dialog.setVisible(true);
+                dialog.setLocationRelativeTo(null);
+                dialog.validate();
+               
+            } catch (IOException ex) {
+                System.out.println(ex.toString());
+            }
+        }
+    }
+
+    private void openFile() {
+        JFileChooser jfc = new JFileChooser("C:");
+        int retVal = jfc.showOpenDialog(null);
+
+        if (retVal == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = jfc.getSelectedFile();
+            FileReader fr;
+            try {
+                fr = new FileReader(selectedFile);
+                s = new Scanner(fr);
+                while (s.hasNextLine()) {
+                    textArea.append(s.nextLine());
+                    textArea.append(System.lineSeparator());
+                }
+            } catch (FileNotFoundException ex) {
+                System.out.println(ex.toString());
+            }
+
         }
     }
 }
